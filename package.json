@@ -1,0 +1,24 @@
+{
+  "name": "ghost-export",
+  "version": "0.0.0",
+  "description": "Export Ghost blog entries as Markdown files",
+  "main": "lib/ghost-export",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/brianokeefe/ghost-export.git"
+  },
+  "keywords": [
+    "ghost",
+    "export",
+    "markdown"
+  ],
+  "author": "Brian O'Keefe <brian@bokstuff.com> (http://bokstuff.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brianokeefe/ghost-export/issues"
+  },
+  "homepage": "https://github.com/brianokeefe/ghost-export"
+}
