@@ -4,7 +4,7 @@
   "description": "Export Ghost blog entries as Markdown files",
   "main": "lib/ghost-export",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt jasmine_node"
   },
   "repository": {
     "type": "git",
