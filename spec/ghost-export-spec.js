@@ -1,18 +1,18 @@
 var exporter = require('../lib/ghost-export'),
-    fs = require('fs');
+    fs = require('fs'),
+    path = require('path');
 
 describe('export', function() {
 
-  describe('with invalid arguments', function() {
-    it('requires a source', function() {
+  describe('arguments', function() {
+    it('should require a source', function() {
       function testFunction() {
         exporter.export({ destination: 'output' });
       }
-
       expect(testFunction).toThrow();
     });
 
-    it('requires a destination', function() {
+    it('should require a destination', function() {
       function testFunction() {
         exporter.export({ source: 'fixtures/ghost' });
       }
@@ -21,30 +21,45 @@ describe('export', function() {
   });
 
   describe('with standard arguments', function() {
-    fs.mkdirSync('output');
+    var filesWritten = 0;
 
-    exporter.export({
-      source: 'fixtures/ghost',
-      destination: 'output'
+    runs(function() {
+      if (!fs.existsSync('output')) {
+        fs.mkdirSync('output');
+      }
+
+      exporter.export({
+        source: 'fixtures/ghost',
+        destination: 'output'
+      }, function(err, count) {
+        filesWritten = count;
+      });
     });
 
-    var output = fs.readdirSync('output');
+    waitsFor(function() {
+      return (filesWritten > 0);
+    });
 
     it('writes markdown files', function() {
-      expect(output).toEqual(['a-test-post.md', 'welcome-to-ghost.md']);
+      expect( fs.readdirSync('output') ).toEqual(['a-test-post.md', 'welcome-to-ghost.md']);
     });
 
     it('uses content from the specified Ghost app', function() {
-      var actual = fs.readFileSync('output/welcome-to-ghost.md', 'utf8'),
-          expected = fs.readFileSync('fixtures/expected/default/welcome-to-ghost.md', 'utf8');
+      var actual = fs.readFileSync('output/a-test-post.md', 'utf8'),
+          expected = fs.readFileSync('fixtures/expected/default/a-test-post.md', 'utf8');
 
       expect(actual).toEqual(expected);
     });
-
   });
 
-  if (fs.existsSync('output')) {
-    fs.rmdirSync('output');
-  }
+  // teardown
+  runs(function() {
+    if (fs.existsSync('output')) {
+      fs.readdirSync('output').forEach(function(file) {
+        fs.unlink( path.join('output', file) );
+      });
+      fs.rmdirSync('output');
+    }
+  });
 
 });
