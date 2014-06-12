@@ -1,7 +1,7 @@
 {
   "name": "ghost-export",
-  "version": "0.1.0",
-  "description": "Export Ghost blog entries as Markdown files",
+  "version": "1.0.0",
+  "description": "Exports a Ghost blog into a collection of Markdown files.",
   "main": "lib/ghost-export",
   "scripts": {
     "test": "grunt jasmine_node"
@@ -26,6 +26,11 @@
     "grunt-jasmine-node": "^0.2.1"
   },
   "dependencies": {
-    "sqlite3": "^2.2.3"
+    "sqlite3": "^2.2.3",
+    "commander": "^2.2.0"
+  },
+  "preferGlobal": "true",
+  "bin": {
+    "ghost-export": "bin/cli.js"
   }
 }
