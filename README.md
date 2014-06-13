@@ -17,6 +17,9 @@ Alternatively, you can `require('ghost-export')` and use it in your own scripts.
     GhostExport({
       source: '/path/to/ghost/app',
       destination: '/path/to/output'
+    }, function(err, count) {
+        if (err) { console.error(err); }
+        else { console.log('Exported ' + count + ' files.'); }
     });
 
 ## Testing
