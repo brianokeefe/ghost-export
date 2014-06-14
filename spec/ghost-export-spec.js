@@ -74,12 +74,12 @@ describe('GhostExport', function() {
     })
 
     it('should write markdown files', function() {
-      expect( fs.readdirSync('output') ).toEqual(['a-test-post.md', 'welcome-to-ghost.md']);
+      expect( fs.readdirSync('output') ).toEqual(['2014-03-08-a-test-post.md', '2014-06-08-welcome-to-ghost.md']);
     });
 
     it('should use content from the specified Ghost app', function() {
-      var actual = fs.readFileSync('output/a-test-post.md', 'utf8'),
-          expected = fs.readFileSync('fixtures/expected/default/a-test-post.md', 'utf8');
+      var actual = fs.readFileSync('output/2014-03-08-a-test-post.md', 'utf8'),
+          expected = fs.readFileSync('fixtures/expected/default/2014-03-08-a-test-post.md', 'utf8');
 
       expect(actual).toEqual(expected);
     });
