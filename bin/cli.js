@@ -4,7 +4,9 @@ var GhostExport = require('..'),
     package = require('../package.json'),
     program = require('commander')
       .version(package.version)
-      .usage('[source] [destination] [options]');
+      .usage('[options...] [source] [destination]')
+      .option('-d --drafts', 'Export drafts only')
+      .option('-a --all', 'Export both published posts and drafts');
 
 program.on('--help', function(){
   console.log('  Description:');
@@ -13,7 +15,14 @@ program.on('--help', function(){
   console.log('');
   console.log('  Examples:');
   console.log('');
+  console.log('    # Export published posts only')
   console.log('    $ ghost-export /path/to/ghost/app /path/to/output');
+  console.log('');
+  console.log('    # Export drafts only')
+  console.log('    $ ghost-export --drafts /path/to/ghost/app /path/to/output');
+  console.log('');
+  console.log('    # Export all posts')
+  console.log('    $ ghost-export --all /path/to/ghost/app /path/to/output');
   console.log('');
 });
 
@@ -21,7 +30,9 @@ program.parse(process.argv);
 
 var args = {
   source: program.args.shift(),
-  destination: program.args.shift()
+  destination: program.args.shift(),
+  published: (!program.drafts || program.all) ? true : false,
+  drafts: (program.drafts || program.all)
 };
 
 GhostExport(args, function(err, count) {

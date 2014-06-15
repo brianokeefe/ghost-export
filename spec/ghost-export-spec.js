@@ -50,18 +50,18 @@ describe('GhostExport', function() {
     });
   });
 
-  describe('with standard arguments', function() {
+  describe('general cases, without draft or published', function() {
+    var filesWritten = 0;
+    var dir = 'output-published';
 
     it('the output directory should not exist before running', function() {
-      expect( fs.existsSync('output') ).toBeFalsy();
+      expect( fs.existsSync(dir) ).toBeFalsy();
     })
-
-    var filesWritten = 0;
 
     runs(function() {
       GhostExport({
         source: 'fixtures/ghost',
-        destination: 'output'
+        destination: dir
       }, function(err, count) { filesWritten = count; });
     });
 
@@ -70,36 +70,77 @@ describe('GhostExport', function() {
     });
 
     it('the output directory should exist after running', function() {
-      expect( fs.existsSync('output') ).toBeTruthy();
-    })
+      expect( fs.existsSync(dir) ).toBeTruthy();
+    });
 
     it('should write markdown files', function() {
-      expect( fs.readdirSync('output') ).toEqual(['2014-03-08-a-test-post.md', '2014-06-08-welcome-to-ghost.md']);
+      expect( fs.readdirSync(dir) ).toEqual(['2014-03-08-a-test-post.md', '2014-06-08-welcome-to-ghost.md']);
     });
 
     it('should use content from the specified Ghost app', function() {
-      var actual = fs.readFileSync('output/2014-03-08-a-test-post.md', 'utf8'),
+      var actual = fs.readFileSync(dir + '/2014-03-08-a-test-post.md', 'utf8'),
           expected = fs.readFileSync('fixtures/expected/default/2014-03-08-a-test-post.md', 'utf8');
 
       expect(actual).toEqual(expected);
     });
+
+    runs(function() { clean(dir); });
   });
 
-  xdescribe('when draft mode is specified', function() {
-    it('exports drafts only');
+  describe('when draft mode is true', function() {
+    var filesWritten = 0;
+    var dir = 'output-drafts';
+
+    runs(function() {
+      GhostExport({
+        source: 'fixtures/ghost',
+        destination: dir,
+        drafts: true,
+        published: false
+      }, function(err, count) { filesWritten = count; });
+    });
+
+    waitsFor(function() {
+      return (filesWritten > 0);
+    });
+
+    it('should only export drafts', function() {
+      expect( fs.readdirSync(dir) ).toEqual(['draft-a-draft.md']);
+    });
+
+    runs(function() { clean(dir); });
   });
 
-  xdescribe('when all mode is specified', function() {
-    it('exports both drafts and published articles');
-  });
+  describe('when both draft and published is true', function() {
+    var filesWritten = 0;
+    var dir = 'output-all';
 
-  // teardown
-  runs(function() {
-    if (fs.existsSync('output')) {
-      fs.readdirSync('output').forEach(function(file) {
-        fs.unlink( path.join('output', file) );
-      });
-      fs.rmdirSync('output');
-    }
+    runs(function() {
+      GhostExport({
+        source: 'fixtures/ghost',
+        destination: dir,
+        drafts: true,
+        published: true
+      }, function(err, count) { filesWritten = count; });
+    });
+
+    waitsFor(function() {
+      return (filesWritten > 0);
+    });
+
+    it('should export all posts', function() {
+      expect( fs.readdirSync(dir) ).toEqual(['2014-03-08-a-test-post.md', '2014-06-08-welcome-to-ghost.md', 'draft-a-draft.md']);
+    });
+
+    runs(function() { clean(dir); });
   });
 });
+
+function clean(dir) {
+  if (fs.existsSync(dir)) {
+    fs.readdirSync(dir).forEach(function(file) {
+      fs.unlinkSync( path.join(dir, file) );
+    });
+    fs.rmdirSync(dir);
+  }
+}
