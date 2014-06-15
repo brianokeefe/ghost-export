@@ -8,7 +8,14 @@ Exports a Ghost blog into a collection of Markdown files.
 
 ## Usage
 
+    # Export published posts only
     $ ghost-export /path/to/ghost/app /path/to/output
+
+    # Export drafts only
+    $ ghost-export --drafts /path/to/ghost/app /path/to/output
+
+    # Export all posts
+    $ ghost-export --all /path/to/ghost/app /path/to/output
 
 Alternatively, you can `require('ghost-export')` and use it in your own scripts. Example:
 
@@ -16,7 +23,9 @@ Alternatively, you can `require('ghost-export')` and use it in your own scripts.
 
     GhostExport({
       source: '/path/to/ghost/app',
-      destination: '/path/to/output'
+      destination: '/path/to/output',
+      published: true, // optional, defaults to true
+      drafts: true // optional, defaults to false
     }, function(err, count) {
         if (err) { console.error(err); }
         else { console.log('Exported ' + count + ' files.'); }

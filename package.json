@@ -1,6 +1,6 @@
 {
   "name": "ghost-export",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Exports a Ghost blog into a collection of Markdown files.",
   "main": "lib/ghost-export",
   "scripts": {
