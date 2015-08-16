@@ -6,7 +6,8 @@ var GhostExport = require('..'),
       .version(package.version)
       .usage('[options...] [source] [destination]')
       .option('-d --drafts', 'Export drafts only')
-      .option('-a --all', 'Export both published posts and drafts');
+      .option('-a --all', 'Export both published posts and drafts')
+      .option('-t --title', 'Export including title at the beginning of the file');
 
 program.on('--help', function(){
   console.log('  Description:');
@@ -32,7 +33,8 @@ var args = {
   source: program.args.shift(),
   destination: program.args.shift(),
   published: (!program.drafts || program.all) ? true : false,
-  drafts: (program.drafts || program.all)
+  drafts: (program.drafts || program.all),
+  title: program.title ? true : false
 };
 
 GhostExport(args, function(err, count) {
