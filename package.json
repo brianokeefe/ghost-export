@@ -26,9 +26,9 @@
     "grunt-jasmine-node": "~0.2.1"
   },
   "dependencies": {
-    "sqlite3": "~2.2.3",
     "commander": "~2.2.0",
-    "dateformat": "~1.0.8-1.2.3"
+    "dateformat": "~1.0.8-1.2.3",
+    "sqlite3": "~3.0.10"
   },
   "preferGlobal": "true",
   "bin": {
