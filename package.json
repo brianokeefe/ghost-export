@@ -28,7 +28,7 @@
   "dependencies": {
     "commander": "~2.2.0",
     "dateformat": "~1.0.8-1.2.3",
-    "sqlite3": "~3.0.10"
+    "sqlite3": "3.1.8"
   },
   "preferGlobal": "true",
   "bin": {
