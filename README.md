@@ -1,6 +1,6 @@
 # ghost-export
 [![NPM version](https://badge.fury.io/js/ghost-export.svg)](http://badge.fury.io/js/ghost-export)
-[![Code Climate](https://codeclimate.com/github/brianokeefe/ghost-export.png)](https://codeclimate.com/github/brianokeefe/ghost-export)
+[![Code Climate](https://codeclimate.com/github/brianokeefe/ghost-export/badges/gpa.svg)](https://codeclimate.com/github/brianokeefe/ghost-export)
 [![Build Status](https://travis-ci.org/brianokeefe/ghost-export.svg?branch=master)](https://travis-ci.org/brianokeefe/ghost-export)
 
 Exports a Ghost blog into a collection of Markdown files.

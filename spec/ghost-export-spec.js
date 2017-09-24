@@ -74,12 +74,12 @@ describe('GhostExport', function() {
     });
 
     it('should write markdown files', function() {
-      expect( fs.readdirSync(dir).sort() ).toEqual(['2014-03-08-a-test-post.md', '2014-06-08-welcome-to-ghost.md']);
+      expect( fs.readdirSync(dir).sort() ).toEqual(['2017-09-19-a-test-post.md', '2017-09-19-welcome-to-ghost.md']);
     });
 
     it('should use content from the specified Ghost app', function() {
-      var actual = fs.readFileSync(dir + '/2014-03-08-a-test-post.md', 'utf8'),
-          expected = fs.readFileSync('fixtures/expected/default/2014-03-08-a-test-post.md', 'utf8');
+      var actual = fs.readFileSync(dir + '/2017-09-19-a-test-post.md', 'utf8'),
+          expected = fs.readFileSync('fixtures/expected/default/2017-09-19-a-test-post.md', 'utf8');
 
       expect(actual).toEqual(expected);
     });
@@ -129,7 +129,7 @@ describe('GhostExport', function() {
     });
 
     it('should export all posts', function() {
-      expect( fs.readdirSync(dir).sort() ).toEqual(['2014-03-08-a-test-post.md', '2014-06-08-welcome-to-ghost.md', 'draft-a-draft.md']);
+      expect( fs.readdirSync(dir).sort() ).toEqual(['2017-09-19-a-test-post.md', '2017-09-19-welcome-to-ghost.md', 'draft-a-draft.md']);
     });
 
     runs(function() { clean(dir); });
