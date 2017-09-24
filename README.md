@@ -33,6 +33,10 @@ Alternatively, you can `require('ghost-export')` and use it in your own scripts.
         if (err) { console.error(err); }
         else { console.log('Exported ' + count + ' files.'); }
     });
+    
+Please note that ghost-export only works with installs of Ghost v1.x.x that are running with sqlite. When you install Ghost via `ghost-cli`, install it like so:
+
+    ghost install --db sqlite3 --dbpath ./content/data/ghost.db
 
 ## Testing
 
